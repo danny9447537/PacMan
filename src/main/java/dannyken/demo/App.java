@@ -24,16 +24,4 @@ public class App {
         pacmanGame.requestFocus();
         frame.setVisible(true);
     }
-    /*
-    This is a test message for jenkins automation
-     */
-    /*
-    This is a second test message for jenkins automation.
-     */
-    /*
-    this is a third test message for jenkins automation.
-     */
-    /*
-    This is a fourth test message for jenkins automation
-     */
 }
