@@ -25,9 +25,9 @@ public class App {
         frame.setVisible(true);
     }
     /*
-
     This is a test message for jenkins automation
-
-
+     */
+    /*
+    This is a second test message for jenkins automation.
      */
 }
