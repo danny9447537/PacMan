@@ -11,6 +11,7 @@ public class App {
         int boardHeight = rowCount * tileSize;
 
         JFrame frame = new JFrame();
+        frame.setTitle("Pac Man  // Ver 1.0");
         //frame.setVisible(true);
         frame.setSize(boardWidth, boardHeight);
         frame.setLocationRelativeTo(null);
