@@ -149,5 +149,15 @@ public class Tests {
         assertTrue(pacmanGame.gameOver, "Game should be over when lives reach 0");
     }
 
+    @Test
+    public void testPacManInitialPosition() {
+        PacMan pacmanGame = new PacMan();
+
+        // Verify that Pac-Man is initialized correctly
+        assertNotNull(pacmanGame.pacman, "Pac-Man should not be null after initialization");
+        assertEquals(32 * 9, pacmanGame.pacman.x, "Pac-Man should start at the correct X position (9th tile)");
+        assertEquals(32 * 16, pacmanGame.pacman.y, "Pac-Man should start at the correct Y position (16th tile)");
+    }
+
 
 }
