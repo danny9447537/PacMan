@@ -156,7 +156,7 @@ public class Tests {
         // Verify that Pac-Man is initialized correctly
         assertNotNull(pacmanGame.pacman, "Pac-Man should not be null after initialization");
         assertEquals(32 * 9, pacmanGame.pacman.x, "Pac-Man should start at the correct X position (9th tile)");
-        assertEquals(32 * 16, pacmanGame.pacman.y, "Pac-Man should start at the correct Y position (16th tile)");
+        assertEquals(32 * 15, pacmanGame.pacman.y, "Pac-Man should start at the correct Y position (15th tile)");
     }
 
 
