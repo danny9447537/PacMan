@@ -131,5 +131,23 @@ public class Tests {
         assertEquals(10, pacmanGame.score);
     }
 
+    @Test
+    public void testLivesReductionOnGhostCollision() {
+        PacMan pacmanGame = new PacMan();
+
+        // Place Pac-Man and a ghost at the same position
+        pacmanGame.pacman = pacmanGame.new Block(null, 64, 64, 32, 32);
+        PacMan.Block ghost = pacmanGame.new Block(null, 64, 64, 32, 32);
+        pacmanGame.ghosts = new HashSet<>();
+        pacmanGame.ghosts.add(ghost);
+
+        // Simulate ghost collision
+        pacmanGame.lives = 1; // Set lives to 1 for the test
+        pacmanGame.move();
+
+        // Verify game over condition
+        assertTrue(pacmanGame.gameOver, "Game should be over when lives reach 0");
+    }
+
 
 }
