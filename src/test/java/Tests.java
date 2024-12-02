@@ -2,6 +2,7 @@ import dannyken.demo.PacMan;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,10 +57,13 @@ public class Tests {
 
     @Test
     public void testGameStopAndClose() {
-        System.out.println("Starting testGameStopAndClose...");
+        if (GraphicsEnvironment.isHeadless()) {
+            System.out.println("Skipping testGameStopAndClose in headless environment.");
+            return; // Skip test
+        }
 
         // Create a JFrame for the game
-        System.out.println("Creating JFrame for the game...");
+        System.out.println("Starting testGameStopAndClose...");
         JFrame frame = new JFrame("Pac-Man Test");
         PacMan game = new PacMan();
 
@@ -68,28 +72,15 @@ public class Tests {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        System.out.println("Game window created and made visible.");
-
         // Start the game (initialize the game loop)
-        System.out.println("Starting the game...");
         game.startGame();
-        System.out.println("Game loop should now be running: " + game.getGameLoop().isRunning());
 
         // Simulate stopping and closing the game
-        System.out.println("Stopping and closing the game...");
         game.closeGame(frame);
 
         // Assertions to verify the game is stopped and resources are cleaned up
-        boolean isGameLoopRunning = game.getGameLoop().isRunning();
-        System.out.println("Game loop running status after closeGame: " + isGameLoopRunning);
-
-        boolean isFrameDisplayable = frame.isDisplayable();
-        System.out.println("Frame displayable status after closeGame: " + isFrameDisplayable);
-
-        assertFalse(isGameLoopRunning, "Game loop should be stopped");
-        assertFalse(isFrameDisplayable, "Game window should be closed");
-
-        System.out.println("testGameStopAndClose completed.");
+        assertFalse(game.getGameLoop().isRunning(), "Game loop should be stopped");
+        assertFalse(frame.isDisplayable(), "Game window should be closed");
     }
 
 
