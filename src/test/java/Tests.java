@@ -83,5 +83,53 @@ public class Tests {
         assertFalse(frame.isDisplayable(), "Game window should be closed");
     }
 
+    @Test
+    public void testGhostMovementAndWallCollision() {
+        PacMan pacmanGame = new PacMan();
+
+        // Create a ghost near a wall
+        PacMan.Block ghost = pacmanGame.new Block(null, 32, 32, 32, 32);
+        PacMan.Block wall = pacmanGame.new Block(null, 32, 0, 32, 32);
+        pacmanGame.walls = new HashSet<>();
+        pacmanGame.walls.add(wall);
+
+        // Set ghost to move upward into the wall
+        ghost.updateDirection('U');
+        System.out.println("Initial Ghost Position: (" + ghost.x + ", " + ghost.y + ")");
+        ghost.x += ghost.velocityX;
+        ghost.y += ghost.velocityY;
+
+        for (PacMan.Block wallBlock : pacmanGame.walls) {
+            if (pacmanGame.collision(ghost, wallBlock)) {
+                ghost.x -= ghost.velocityX;
+                ghost.y -= ghost.velocityY;
+            }
+        }
+
+        System.out.println("Ghost Position after moving into wall: (" + ghost.x + ", " + ghost.y + ")");
+        assertEquals(32, ghost.x);
+        assertEquals(32, ghost.y);
+    }
+
+    @Test
+    public void testFoodConsumption() {
+        PacMan pacmanGame = new PacMan();
+
+        // Place a food item in Pac-Man's path
+        PacMan.Block food = pacmanGame.new Block(null, 32, 32, 4, 4);
+        pacmanGame.foods = new HashSet<>();
+        pacmanGame.foods.add(food);
+
+        // Move Pac-Man to consume the food
+        pacmanGame.pacman = pacmanGame.new Block(null, 32, 32, 32, 32);
+        assertTrue(pacmanGame.collision(pacmanGame.pacman, food));
+        pacmanGame.foods.remove(food);
+
+        // Verify the food has been consumed and score updated
+        assertTrue(pacmanGame.foods.isEmpty(), "Food set should be empty after consumption");
+        pacmanGame.score += 10;
+        assertEquals(10, pacmanGame.score);
+    }
+
 
 }

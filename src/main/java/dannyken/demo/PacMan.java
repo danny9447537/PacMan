@@ -129,11 +129,11 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
     };
 
     public HashSet<Block> walls;
-    HashSet<Block> foods;
+    public HashSet<Block> foods;
     public HashSet<Block> ghosts;
     public Block pacman;
     Timer gameLoop;
-    int score = 0;
+    public int score = 0;
     int lives = 3;
     boolean gameOver = false;
 
