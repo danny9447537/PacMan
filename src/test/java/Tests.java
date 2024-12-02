@@ -159,5 +159,9 @@ public class Tests {
         assertEquals(32 * 15, pacmanGame.pacman.y, "Pac-Man should start at the correct Y position (15th tile)");
     }
 
+    /*
+    This is a test for github actions
+     */
+
 
 }
