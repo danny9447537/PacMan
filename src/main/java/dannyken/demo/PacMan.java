@@ -10,6 +10,9 @@ import java.util.Random;
 import javax.swing.*;
 
 public class PacMan extends JPanel implements ActionListener, KeyListener {
+    public void startGame() {
+    }
+
     public class Block {
         public int x;
         public int y;
@@ -331,6 +334,27 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
             ghost.velocityX = 0; // Ensure velocity is reset
             ghost.velocityY = 0;
         }
+        for (Block ghost : ghosts) {
+            ghost.reset();
+            char newDirection = directions[random.nextInt(4)];
+            ghost.updateDirection(newDirection);
+        }
+    }
+
+    public void stopGame() {
+        if (gameLoop != null) {
+            gameLoop.stop();
+        }
+        gameOver = true;
+    }
+
+    public void closeGame(JFrame frame) {
+        stopGame();
+        frame.dispose();
+    }
+
+    public Timer getGameLoop() {
+        return gameLoop;
     }
 
     public void move() {

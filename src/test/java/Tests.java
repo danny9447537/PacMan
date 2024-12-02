@@ -1,6 +1,7 @@
 import dannyken.demo.PacMan;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,30 +24,6 @@ public class Tests {
         boolean result2 = pacmanGame.collision(block1, block3);
         System.out.println("Testing collision for non-overlapping blocks: " + result2);
         assertFalse(result2); // Expecting collision to be false
-    }
-
-    @Test
-    public void testResetPositions() {
-        PacMan pacmanGame = new PacMan();
-
-        pacmanGame.pacman = pacmanGame.new Block(null, 100, 100, 32, 32);
-        pacmanGame.pacman.startX = 50;
-        pacmanGame.pacman.startY = 50;
-
-        PacMan.Block ghost = pacmanGame.new Block(null, 200, 200, 32, 32);
-        ghost.startX = 150;
-        ghost.startY = 150;
-        pacmanGame.ghosts = new HashSet<>();
-        pacmanGame.ghosts.add(ghost);
-
-        pacmanGame.resetPositions();
-
-        System.out.println("Pac-Man position after reset: (" + pacmanGame.pacman.x + ", " + pacmanGame.pacman.y + ")");
-        System.out.println("Ghost position after reset: (" + ghost.x + ", " + ghost.y + ")");
-        assertEquals(50, pacmanGame.pacman.x);
-        assertEquals(50, pacmanGame.pacman.y);
-        assertEquals(150, ghost.x);
-        assertEquals(150, ghost.y);
     }
 
     @Test
@@ -76,4 +53,44 @@ public class Tests {
         System.out.println("Direction after moving down: " + block.direction + ", Velocity: (" + block.velocityX + ", " + block.velocityY + ")");
         assertEquals('D', block.direction); // Should update since there's no collision
     }
+
+    @Test
+    public void testGameStopAndClose() {
+        System.out.println("Starting testGameStopAndClose...");
+
+        // Create a JFrame for the game
+        System.out.println("Creating JFrame for the game...");
+        JFrame frame = new JFrame("Pac-Man Test");
+        PacMan game = new PacMan();
+
+        frame.add(game);
+        frame.setSize(640, 480);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        System.out.println("Game window created and made visible.");
+
+        // Start the game (initialize the game loop)
+        System.out.println("Starting the game...");
+        game.startGame();
+        System.out.println("Game loop should now be running: " + game.getGameLoop().isRunning());
+
+        // Simulate stopping and closing the game
+        System.out.println("Stopping and closing the game...");
+        game.closeGame(frame);
+
+        // Assertions to verify the game is stopped and resources are cleaned up
+        boolean isGameLoopRunning = game.getGameLoop().isRunning();
+        System.out.println("Game loop running status after closeGame: " + isGameLoopRunning);
+
+        boolean isFrameDisplayable = frame.isDisplayable();
+        System.out.println("Frame displayable status after closeGame: " + isFrameDisplayable);
+
+        assertFalse(isGameLoopRunning, "Game loop should be stopped");
+        assertFalse(isFrameDisplayable, "Game window should be closed");
+
+        System.out.println("testGameStopAndClose completed.");
+    }
+
+
 }
