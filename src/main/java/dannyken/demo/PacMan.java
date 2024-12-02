@@ -10,21 +10,21 @@ import java.util.Random;
 import javax.swing.*;
 
 public class PacMan extends JPanel implements ActionListener, KeyListener {
-    class Block {
-        int x;
-        int y;
+    public class Block {
+        public int x;
+        public int y;
         int width;
         int height;
         Image image;
 
-        int startX;
-        int startY;
-        char direction = 'U'; // U D L R
-        int velocityX = 0;
-        int velocityY = 0;
+        public int startX;
+        public int startY;
+        public char direction = 'U'; // U D L R
+        public int velocityX = 0;
+        public int velocityY = 0;
 
 
-        Block(Image image, int x, int y, int width, int height) {
+        public Block(Image image, int x, int y, int width, int height) {
             this.image = image;
             this.x = x;
             this.y = y;
@@ -34,7 +34,7 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
             this.startY = y;
         }
 
-        void updateDirection(char direction) {
+        public void updateDirection(char direction) {
             char prevDirection = this.direction;
             this.direction = direction;
             updateVelocity();
@@ -69,7 +69,7 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
             }
         }
 
-        void reset() {
+        public void reset() {
             this.x = this.startX;
             this.y = this.startY;
         }
@@ -77,7 +77,7 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
 
     private int rowCount = 21;
     private int colCount = 19;
-    private int tileSize = 32;
+    public int tileSize = 32;
     private int boardWidth = colCount * tileSize;
     private int boardHeight = rowCount * tileSize;
 
@@ -125,10 +125,10 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
             "XXXXXXXXXXXXXXXXXXX"
     };
 
-    HashSet<Block> walls;
+    public HashSet<Block> walls;
     HashSet<Block> foods;
-    HashSet<Block> ghosts;
-    Block pacman;
+    public HashSet<Block> ghosts;
+    public Block pacman;
     Timer gameLoop;
     int score = 0;
     int lives = 3;
@@ -140,7 +140,7 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
     Random random = new Random();
 
     // PacMan Constructor
-    PacMan() {
+    public PacMan() {
         setPreferredSize(new Dimension(boardWidth, boardHeight));
         setBackground(Color.BLACK);
         addKeyListener(this);
@@ -326,10 +326,10 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
         pacman.reset();
         pacman.velocityX = 0;
         pacman.velocityY = 0;
-        for (Block ghost: ghosts) {
+        for (Block ghost : ghosts) {
             ghost.reset();
-            char newDirection = directions[random.nextInt(4)];
-            ghost.updateDirection(newDirection);
+            ghost.velocityX = 0; // Ensure velocity is reset
+            ghost.velocityY = 0;
         }
     }
 
