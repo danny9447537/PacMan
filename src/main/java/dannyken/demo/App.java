@@ -24,4 +24,5 @@ public class App {
         pacmanGame.requestFocus();
         frame.setVisible(true);
     }
+
 }
